@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order History</title>
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --text: #1e2937;
+      --light-text: #64748b;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f1f5f9;
+      color: var(--text);
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .sidebar {
+      width: 260px;
+      background: white;
+      border-right: 1px solid #e2e8f0;
+      padding: 20px 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .logo {
+      padding: 0 24px 30px 24px;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--primary);
+      text-align: center;
+    }
+    .nav-item {
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--light-text);
+      text-decoration: none;
+      font-size: 15px;
+      transition: all 0.2s;
+    }
+    .nav-item:hover, .nav-item.active {
+      background: #f1f5f9;
+      color: var(--primary);
+      font-weight: 600;
+    }
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header {
+      padding: 16px 32px;
+      background: white;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--light-text);
+      font-size: 14px;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+    }
+
+    .user-info img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+    }
+
+    .content {
+      padding: 24px 32px;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .title {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .table-container {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    }
+
+    table { width: 100%; border-collapse: collapse; }
+
+    th {
+      background: #f8fafc;
+      padding: 16px 20px;
+      text-align: left;
+      font-weight: 600;
+      color: var(--light-text);
+      font-size: 14px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    td {
+      padding: 18px 20px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .customer, .product {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .customer img, .product img {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+    }
+
+    .customer img { border-radius: 50%; }
+    .product img { border-radius: 8px; width: 50px; height: 50px; }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .failed  { background: #ef4444; }
+    .awaiting { background: #3b82f6; }
+    .paid    { background: #22c55e; }
+
+    .order-status {
+      padding: 6px 16px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 600;
+      display: inline-block;
+      min-width: 95px;
+      text-align: center;
+    }
+
+    .cancelled  { background: #fee2e2; color: #ef4444; }
+    .processing { background: #dbeafe; color: #2563eb; }
+    .delivered  { background: #dcfce7; color: #16a34a; }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <div class="logo">Your Logo</div>
+    <a href="#" class="nav-item">🏠 Dashboards</a>
+    <a href="#" class="nav-item active">📦 Product</a>
+    <a href="#" class="nav-item">🔹 Widgets</a>
+    <a href="#" class="nav-item">🖼️ UI Elements</a>
+    <a href="#" class="nav-item">📄 Pages</a>
+    <a href="#" class="nav-item">📅 Calendar</a>
+    <a href="#" class="nav-item">📋 Forms</a>
+    <a href="#" class="nav-item">📊 Tables</a>
+    <a href="#" class="nav-item">📈 Graphs & Maps</a>
+    <a href="#" class="nav-item">📐 Layouts</a>
+    <a href="#" class="nav-item">🔐 Authentication</a>
+    <a href="#" class="nav-item">🔗 Link</a>
+  </div>
+  <div class="main">
+    <div class="header">
+      <div class="breadcrumb">
+        <a href="#">Home</a> &gt; 
+        <a href="#">Product</a> &gt; 
+        <span>Orders</span>
+      </div>
+      <div class="user-info">
+        Abigail Hea...
+        <img src="https://i.pravatar.cc/150?img=68" alt="">
+      </div>
+    </div>
+
+    <div class="content">
+      <h1 class="title">Order History</h1>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Customer</th>
+              <th>Product</th>
+              <th>User ID</th>
+              <th>Ordered Placed</th>
+              <th>Amount</th>
+              <th>Payment Status</th>
+              <th>Order Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="customer"><img src="https://i.pravatar.cc/150?img=44" alt=""><span>Sybil Boyd</span></div></td>
+              <td><div class="product"><img src="https://picsum.photos/id/292/80/80" alt=""><span>Spaghetti</span></div></td>
+              <td>Arise0435</td>
+              <td>2020/09/21</td>
+              <td>$46.00</td>
+              <td><span class="dot failed"></span> Failed</td>
+              <td><span class="order-status cancelled">Cancelled</span></td>
+            </tr>
+            <tr>
+              <td><div class="customer"><img src="https://i.pravatar.cc/150?img=45" alt=""><span>Lindsay Rogers</span></div></td>
+              <td><div class="product"><img src="https://picsum.photos/id/201/80/80" alt=""><span>Garlic Kebabs</span></div></td>
+              <td>Arise0878</td>
+              <td>2020/10/25</td>
+              <td>$87.00</td>
+              <td><span class="dot awaiting"></span> Awaiting</td>
+              <td><span class="order-status processing">Processing</span></td>
+            </tr>
+            <tr>
+              <td><div class="customer"><img src="https://i.pravatar.cc/150?img=67" alt=""><span>Jewel Steele</span></div></td>
+              <td><div class="product"><img src="https://picsum.photos/id/1080/80/80" alt=""><span>Ginger Snacks</span></div></td>
+              <td>Arise0370</td>
+              <td>2020/10/30</td>
+              <td>$65.00</td>
+              <td><span class="dot paid"></span> Paid</td>
+              <td><span class="order-status delivered">Delivered</span></td>
+            </tr>
+            <tr>
+              <td><div class="customer"><img src="https://i.pravatar.cc/150?img=48" alt=""><span>Zea Hansen</span></div></td>
+              <td><div class="product"><img src="https://picsum.photos/id/133/80/80" alt=""><span>Guava Sorbet</span></div></td>
+              <td>Arise0435</td>
+              <td>2020/10/12</td>
+              <td>$88.00</td>
+              <td><span class="dot failed"></span> Failed</td>
+              <td><span class="order-status cancelled">Cancelled</span></td>
+            </tr>
+            <tr>
+              <td><div class="customer"><img src="https://i.pravatar.cc/150?img=49" alt=""><span>Angelica King</span></div></td>
+              <td><div class="product"><img src="https://picsum.photos/id/870/80/80" alt=""><span>Gooseberry Surprise</span></div></td>
+              <td>Arise0878</td>
+              <td>2020/10/11</td>
+              <td>$87.00</td>
+              <td><span class="dot awaiting"></span> Awaiting</td>
+              <td><span class="order-status processing">Processing</span></td>
+            </tr>
+            <tr>
+              <td><div class="customer"><img src="https://i.pravatar.cc/150?img=50" alt=""><span>Nadia Hart</span></div></td>
+              <td><div class="product"><img src="https://picsum.photos/id/201/80/80" alt=""><span>Peanut Yogurt</span></div></td>
+              <td>Arise0435</td>
+              <td>2020/09/21</td>
+              <td>$46.00</td>
+              <td><span class="dot failed"></span> Failed</td>
+              <td><span class="order-status cancelled">Cancelled</span></td>
+            </tr>
+            <tr>
+              <td><div class="customer"><img src="https://i.pravatar.cc/150?img=51" alt=""><span>Tamara Aguilar</span></div></td>
+              <td><div class="product"><img src="https://picsum.photos/id/133/80/80" alt=""><span>Almond Strudel</span></div></td>
+              <td>Arise0878</td>
+              <td>2020/10/25</td>
+              <td>$87.00</td>
+              <td><span class="dot awaiting"></span> Awaiting</td>
+              <td><span class="order-status processing">Processing</span></td>
+            </tr>
+            <tr>
+              <td><div class="customer"><img src="https://i.pravatar.cc/150?img=52" alt=""><span>Mia Thompson</span></div></td>
+              <td><div class="product"><img src="https://picsum.photos/id/292/80/80" alt=""><span>Chocolate Cake</span></div></td>
+              <td>Arise0912</td>
+              <td>2020/11/05</td>
+              <td>$92.00</td>
+              <td><span class="dot paid"></span> Paid</td>
+              <td><span class="order-status delivered">Delivered</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
